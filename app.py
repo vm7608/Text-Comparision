@@ -182,7 +182,7 @@ def main():
         )
 
         # Display in two columns
-        col1, col2 = st.columns(2)
+        col1, col2, col3 = st.columns(3)
         with col1:
             st.header("Question base")
             st.markdown(f"**LER: {log_quest['ler_base']}**")
@@ -197,14 +197,19 @@ def main():
             for line_num, line in enumerate(result2, start=1):
                 st.markdown(f":blue[{line_num} &rarr;] {line}", unsafe_allow_html=True)
 
+        with col3:
+            st.header("Ground truth")
+            st.markdown(f"**{log_quest['question_id']}**")
+            st.markdown("<hr />", unsafe_allow_html=True)
+            for line_num, line in enumerate(log_quest["ground_truth"], start=1):
+                st.markdown(f":blue[{line_num} &rarr;] {line}", unsafe_allow_html=True)
+
         st.markdown("<hr />", unsafe_allow_html=True)
         st.image(log_quest["img_link"], use_column_width=True)
 
 
 if __name__ == '__main__':
-    JSON_LOG_PATH = (
-        "visualize_question.json"
-    )
+    JSON_LOG_PATH = "visualize_question.json"
     JSON_LOGS = read_json(JSON_LOG_PATH)
     NUMBER_OF_LOGS = len(JSON_LOGS)
     main()
